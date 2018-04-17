@@ -50,3 +50,9 @@ if __name__ == "__main__":
     total_connections = sum(number_of_friends(user) for user in users)
     num_users = len(users)
     print("Average friends: {}".format(total_connections / num_users))
+
+    num_friends_by_id = [(user['id'], number_of_friends(user)) for user in users]
+    sorted_friends = sorted(num_friends_by_id, key=lambda (user_id, num_friends): num_friends, reverse=True)
+    for sorted_friend in sorted_friends:
+        friend_name = next(user["name"] for user in users if user["id"] == sorted_friend[0])
+        print("{} has {} friends".format(friend_name, sorted_friend[1]))
